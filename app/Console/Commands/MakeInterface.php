@@ -39,7 +39,16 @@ class MakeInterface extends GeneratorCommand
     {
         $stub = parent::replaceClass($stub, $name);
 
-        return str_replace('DummyInterface', $this->argument('name'), $stub);
+        // Array For Name
+        $interfaceName = explode('/', $this->argument('name'));
+
+        // Change Dummy Interface
+        $stub = str_replace('DummyInterface', $interfaceName[count($interfaceName)-1], $stub);
+
+        // Deleting One
+        array_pop($interfaceName);
+
+        return str_replace('DummyPath', $interfaceName ? 'Interfaces\\'.implode('/', $interfaceName) : 'Interfaces', $stub);
     }
 
 	/**
