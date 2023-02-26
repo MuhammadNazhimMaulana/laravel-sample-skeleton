@@ -43,23 +43,11 @@ class MakeRepository extends GeneratorCommand
 
         // Prepare Interface Name
         $interfaceName = str_replace('Repository', '', $this->argument('name'));
-        
-        // Array For Name
-        $repoName = explode('/', $this->argument('name'));
 
-        // Change Path Name
-        $stub = str_replace('DummyPath', str_replace('/', '\\', $interfaceName).'Interface', $stub);
-        
-        // Change Interface Name
-        $stub = str_replace('DummyInterface', str_replace('Repository', '', $repoName[count($repoName)-1].'Interface'), $stub);
+        // Called Interface
+        $stub = str_replace('DummyInterface', $interfaceName.'Interface', $stub);
 
-        // Change Repositoy Name
-        $stub =  str_replace('DummyRepository', $repoName[count($repoName)-1], $stub);
-
-        // Deleting One
-        array_pop($repoName);
-
-        return str_replace('DummyRepositoriesPath', $repoName ? 'Repositories\\'.implode('/', $repoName).';' : 'Repositories;', $stub);
+        return str_replace('DummyRepository', $this->argument('name').'Repository', $stub);
     }
 
 	/**
